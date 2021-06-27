@@ -12,7 +12,7 @@ using namespace std;
 ll grape[MAX];
 ll sum[MAX];
 int n;
-
+// 포도주
 ll max(ll a, ll b, ll c)
 {
     if (a >= b && a >= c)
@@ -47,7 +47,6 @@ void solution()
     }
     cout << sum[n];
 }
-
 int main()
 {
     cin.tie(0);
