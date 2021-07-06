@@ -59,7 +59,7 @@ void solution()
     cout << leftc << ", " << rightc << endl;
     sort(house, house + n);
     cout << "house : ";
-    for (int i = 0; i    < n; i++)
+    for (int i = 0; i < n; i++)
     {
         cout << house[i] << " ";
     }
