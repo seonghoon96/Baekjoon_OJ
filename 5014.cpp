@@ -13,25 +13,25 @@
     void solution();
     bool visited[MAX];
     int answer = INF;
-    void DFS(int floor, int click)
-    {
-        visited[floor] = true;
-        if (floor == g)
-        {
-            answer = min(answer, click);
-            return;
-        }
-        if (floor + u > floor && floor + u <= f && !visited[floor + u])
-        {
-            DFS(floor + u, click + 1);
-            visited[floor + u] = false;
-        }
-        if (floor - d < floor && floor - d >= 1 && !visited[floor - d])
-        {
-            DFS(floor - d, click + 1);
-            visited[floor - d] = false;
-        }
-    }
+    // void DFS(int floor, int click)
+    // {
+    //     visited[floor] = true;
+    //     if (floor == g)
+    //     {
+    //         answer = min(answer, click);
+    //         return;
+    //     }
+    //     if (floor + u > floor && floor + u <= f && !visited[floor + u])
+    //     {
+    //         DFS(floor + u, click + 1);
+    //         visited[floor + u] = false;
+    //     }
+    //     if (floor - d < floor && floor - d >= 1 && !visited[floor - d])
+    //     {
+    //         DFS(floor - d, click + 1);
+    //         visited[floor - d] = false;
+    //     }
+    // }
 
     void input()
     {
