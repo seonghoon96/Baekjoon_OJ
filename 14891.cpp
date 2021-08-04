@@ -27,7 +27,7 @@ void input()
     cin >> testcase;
 }
 
-void positionCheck()
+void positionCheck()    
 {
     spinDirec[spinGear] = direction;
     int rightDirect = spinGear + 1;
