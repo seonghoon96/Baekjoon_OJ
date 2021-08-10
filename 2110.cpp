@@ -1,99 +1,54 @@
 #include <iostream>
 #include <algorithm>
-#include <cstring>
-#include <cstdio>
-#include <vector>
-#include <cmath>
-#include <queue>
 using namespace std;
-#define MAX 200000 + 1
-#define mod 1000000000
-#define ll long long
-
+const int MAX = 200000;
+int N, C;
 int house[MAX];
-bool visited[MAX];
-int n, c;
-int leftc, rightc;
-vector<int> position;
-void input()
-{
-    cin >> n >> c;
-    for (int i = 0; i < n; i++)
-        cin >> house[i];
-}
 
-int binary_search(int l, int r)
+bool possible(int dist)
 {
-    int mid = (l + r) / 2;
-    if (l >= r)
-    {
-        visited[mid] = true;
-        if (house[mid] - house[leftc] > house[rightc] - house[mid])
-            rightc = mid;
-        else
-            leftc = mid;
-    }
-    else
-    {
+    int cnt = 1;
+    int prev = house[0];
 
-        if (house[mid] - house[l] > house[r] - house[mid])
+    //조건 충족하는지 확인
+    for (int i = 1; i < N; i++)
+        if (house[i] - prev >= dist)
         {
-            binary_search(l, mid);
+            cnt++;
+            prev = house[i];
         }
-        else
-        {
-            binary_search(mid, r);
-        }
-    }
-    return mid;
+
+    //조건 충족
+    if (cnt >= C)
+        return true;
+    return false;
 }
 
-void solution()
-{
-    memset(visited, 0, sizeof(visited));
-    visited[0] = visited[n - 1] = true;
-    leftc = 0;
-    rightc = n - 1;
-    position.push_back(0);
-    position.push_back(n - 1);
-    cout << leftc << ", " << rightc << endl;
-    sort(house, house + n);
-    cout << "house : ";
-    for (int i = 0; i < n; i++)
-    {
-        cout << house[i] << " ";
-    }
-    cout << endl;
-    if (c <= 2)
-    {
-        cout << house[n - 1] - house[0] + 1;
-        return;
-    }
-    c -= 2;
-    int nextPosition;
-    while (c--)
-    {
-        nextPosition = binary_search(leftc, rightc);
-        cout << "nextPos : " << nextPosition << endl;
-        position.push_back(nextPosition);
-    }
-    sort(position.begin(), position.end());
+int main(void)
 
-    int answer = house[n - 1] - house[0];
-    cout << "answer : " << answer << endl;
-    for (int i = 1; i < position.size(); i++)
-    {
-        if (house[position[i]] - house[position[i - 1]] < answer)
-            answer = house[position[i]] - house[position[i - 1]];
-    }
-    cout << answer;
-}
-
-int main()
 {
-    cin.tie(0);
     ios_base::sync_with_stdio(0);
-    input();
-    solution();
+    cin.tie(0);
+    cin >> N >> C;
+    for (int i = 0; i < N; i++)
+        cin >> house[i];
+
+    sort(house, house + N);
+    //최소거리, 최대 거리
+    int low = 1, high = house[N - 1] - house[0];
+    int result = 0;
+
+    while (low <= high)
+    {
+        int mid = (low + high) / 2;
+        if (possible(mid))
+        {
+            result = max(result, mid);
+            low = mid + 1;
+        }
+        else
+            high = mid - 1;
+    }
+    cout << result << "\n";
     return 0;
 }
